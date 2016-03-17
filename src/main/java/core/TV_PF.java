@@ -1,7 +1,6 @@
 package core;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -12,17 +11,18 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 
 public class TV_PF {
-	public static void main(String[] args) throws FileNotFoundException, IOException {
+	public static void main(String[] args)  {
 			String test_case_id = null;
 			String url = null;
 			String title_expected = null;
 			Properties pf = new Properties();
 					
-			pf.load(new FileInputStream("C:/Workspace/HW_35_TV_PF/src/main/resources/pf.txt"));
+			try {pf.load(new FileInputStream("C:/Workspace/HW_35_TV_PF/src/main/resources/pf.txt"));
 				test_case_id = pf.getProperty("test_case_id");
 				url = pf.getProperty("url");
-				title_expected = pf.getProperty("title_expected");
-			
+				title_expected = pf.getProperty("title_expected");}
+			catch (IOException e) {
+			e.printStackTrace();}
 
 			WebDriver driver = new HtmlUnitDriver(); //Version 1.2::HtmlUnit
 			driver.get(url);
